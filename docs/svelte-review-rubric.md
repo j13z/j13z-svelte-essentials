@@ -1,0 +1,167 @@
+# Svelte UI review rubric
+
+Use this rubric to review generated or refactored Svelte 5 code.
+
+## 1. Svelte 5 conventions
+
+- [ ] Uses Svelte 5 syntax only
+- [ ] Uses `$props()` for props
+- [ ] Uses snippets / `{@render ...}` where composition is needed
+- [ ] Does not use `export let`
+- [ ] Does not introduce legacy slots in new code
+- [ ] Prefers attachments over actions in new code
+
+## 2. Component responsibility
+
+- [ ] The responsibility of the component/module is clear
+- [ ] The unit size is reasonable
+- [ ] The file does not mix too many unrelated concerns
+- [ ] The component boundary matches the conceptual boundary
+- [ ] The code would still be understandable in three months
+
+## 3. Component type
+
+- [ ] The chosen type is correct: primitive, composite, or headless
+- [ ] The implementation matches the chosen type
+- [ ] The public API matches the chosen type
+- [ ] The component is not trying to be multiple types at once
+
+## 4. State ownership
+
+- [ ] Each state value has clear ownership
+- [ ] There is one obvious source of truth per concern
+- [ ] Shared or reusable stateful logic is not duplicated across components
+- [ ] The component script is not acting as an unstructured state bucket
+
+## 5. State structure
+
+- [ ] Writable state is minimal
+- [ ] Derived values are not stored as mutable state without reason
+- [ ] Props are not mirrored into local state without strong reason
+- [ ] There are no duplicated writable representations of the same concept
+- [ ] The state shape matches the conceptual model of the feature
+
+## 6. Reactivity
+
+- [ ] `$effect(...)` is only used for real side effects
+- [ ] Effects are not used to synchronize values that could be derived
+- [ ] There are no effect chains coordinating internal state
+- [ ] Reactive logic is simple and traceable
+- [ ] The code does not rely on ad hoc reactive glue
+
+## 7. Modularity and extraction
+
+- [ ] Reusable non-visual logic is extracted from components when appropriate
+- [ ] Similar stateful behavior is not duplicated locally
+- [ ] Helpers/modules are coherent and single-purpose
+- [ ] Rendering concerns are kept separate from reusable logic
+- [ ] The current abstraction level is justified by actual repetition
+
+## 8. Primitive quality
+
+Apply if the unit is a primitive.
+
+- [ ] Has a single DOM root
+- [ ] Supports `class`
+- [ ] Supports `ref`
+- [ ] Forwards native props where appropriate
+- [ ] Supports `children`
+- [ ] Keeps internal behavior minimal
+- [ ] Does not introduce unnecessary state or complexity
+
+## 9. Composite quality
+
+Apply if the unit is a composite.
+
+- [ ] Builds on top of primitives/components
+- [ ] Provides a curated and explicit public API
+- [ ] Uses snippets only where structure actually matters
+- [ ] Forwarding is intentional, not blind
+- [ ] Internal styling hooks are exposed only where truly useful
+- [ ] Adds real architectural value beyond extra markup
+
+## 10. Headless primitive quality
+
+Apply if the unit is a headless primitive.
+
+- [ ] Headless behavior is justified by real flexibility/reuse needs
+- [ ] Styling is not coupled to behavior
+- [ ] Behavior and semantics are explicit
+- [ ] Render delegation is used only as an advanced need
+- [ ] The API remains ergonomic despite flexibility
+
+## 11. Open and composable API
+
+- [ ] The component integrates naturally with normal platform behavior
+- [ ] Consumers can style/compose without hacks
+- [ ] The API is explicit but not unnecessarily closed
+- [ ] Native platform capabilities are not blocked without reason
+- [ ] Forwarding and extension points feel intentional
+
+## 12. Tailwind usage
+
+- [ ] Tailwind classes are structured rather than copy-pasted
+- [ ] Large utility groups are not duplicated across siblings/files
+- [ ] Repeated visual patterns have a home
+- [ ] Class lists are readable and intentional
+- [ ] Duplication that should become a component/helper/variant has been extracted
+
+## 13. Tailwind variants
+
+- [ ] `tailwind-variants` is only used where a real semantic variant surface exists
+- [ ] Variant names describe intent rather than CSS trivia
+- [ ] The variant matrix is reasonably small
+- [ ] Variants are not compensating for poor component boundaries
+
+## 14. Markup and structure
+
+- [ ] Markup is minimal
+- [ ] The DOM hierarchy is easy to scan
+- [ ] Each wrapper has a clear semantic, layout, or compositional reason
+- [ ] The DOM shape reflects the mental model of the component
+- [ ] The structure does not feel incrementally patched together
+
+## 15. Accessibility and semantics
+
+- [ ] Native elements are used where possible
+- [ ] HTML semantics are correct
+- [ ] ARIA is used only when needed
+- [ ] Keyboard and focus behavior are not accidental
+- [ ] Accessibility is part of the implementation, not a late patch
+
+## 16. Styling restraint and UI noise
+
+- [ ] The UI is visually restrained rather than noisy
+- [ ] Borders, surfaces, and decorative framing are used sparingly
+- [ ] Hierarchy is achieved primarily through spacing/typography/layout
+- [ ] The result does not feel boxed-in or cluttered
+- [ ] Decoration is intentional rather than compensatory
+
+## 17. Maintainability
+
+- [ ] Another developer could quickly understand where to change this
+- [ ] The code would be easy to extend in a later feature
+- [ ] The current structure reduces future cleanup work
+- [ ] Repetition has been addressed at the right level
+- [ ] The implementation feels deliberate rather than merely “good enough”
+
+## 18. Common failure modes
+
+Check whether any of these are present:
+
+- [ ] Functionally correct but structurally noisy code
+- [ ] Too much local state
+- [ ] Too many effects
+- [ ] Weak state ownership
+- [ ] Repeated logic with small deviations
+- [ ] Duplicated Tailwind groups
+- [ ] Unnecessary wrappers
+- [ ] Props mirrored into local state
+- [ ] Derived values stored as mutable state
+- [ ] Over-generalization in one place, under-extraction in another
+
+## 19. Overall decision
+
+- [ ] Ready as-is
+- [ ] Needs targeted refactoring
+- [ ] Needs architectural restructuring
