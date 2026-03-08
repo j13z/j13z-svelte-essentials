@@ -4,12 +4,18 @@ Use this rubric to review generated or refactored Svelte 5 code.
 
 ## 1. Svelte 5 conventions
 
-- [ ] Uses Svelte 5 syntax only
-- [ ] Uses `$props()` for props
-- [ ] Uses snippets / `{@render ...}` where composition is needed
-- [ ] Does not use `export let`
-- [ ] Does not introduce legacy slots in new code
-- [ ] Prefers attachments over actions in new code
+- [ ] Uses Svelte 5 syntax only, does not use the following Svelte 4 syntax:
+    - Uses correct Svelte 5 rune syntax, including valid forms of `$derived` (expression form `$derived` vs function form `$derived.by`)
+    - No `export let`,  uses `$props()` for props
+    - No `$:` reactive statements (instead: Svelte 5 runes)
+    - No `<slot>`, uses snippets / `children` / `{@render children?.()}` instead where composition is needed (additional snippet props possible)
+    - No `createEventDispatcher`, instead: callback props (e.g. `onFoo?: (value: number) => void`)
+    - No `on:click` (instead: `onclick`), and similar
+    - No uses of Svelte 4 event modifies, e.g. `onclick|preventDefault`, uses explicit code or existing project helper functions instead
+- [ ] Prefers Svelte 5 attachments (`{@attach …}`) over actions in new code, uses attachment factory functions where useful
+- [ ] If `{@const …}` is used, respects the rule: `{@const …}` is only allowed as an immediate child of a block
+- [ ] If `each` blocks are used (`{#each expression as name, index (key)}...{/each}`), provides a `key` for each blocks where a stable key exists
+- [ ] Uses script module only for module-level logic that should run once per module, or for module exports such as exported types (regular instance `<script>` blocks cannot export them). Otherwise prefers a regular instance `<script>`.
 
 ## 2. Component responsibility
 
