@@ -16,6 +16,7 @@ Use this rubric to review generated or refactored Svelte 5 code.
 - [ ] If `{@const …}` is used, respects the rule: `{@const …}` is only allowed as an immediate child of a block
 - [ ] If `each` blocks are used (`{#each expression as name, index (key)}...{/each}`), provides a `key` for each blocks where a stable key exists
 - [ ] Uses script module only for module-level logic that should run once per module, or for module exports such as exported types (regular instance `<script>` blocks cannot export them). Otherwise prefers a regular instance `<script>`.
+- [ ] Syntax: Make use of the possibility to destructure `$derived()`, where useful, e.g. `const { a, b, c } = $derived(fooStateProxy)` (the resulting variables will all be reactive)
 
 ## 2. Component responsibility
 
