@@ -6,7 +6,7 @@ They are intentionally opinionated and optimized for maintainability, clean arch
 
 ## Hard rules
 
-- Use Svelte 5 syntax only
+- Use modern Svelte 5 syntax and conventions consistently
 - Use `$props()` for props
 - Use snippets and `{@render ...}` for composition
 - Do not use `export let`
@@ -121,7 +121,7 @@ If none of these fit cleanly, reconsider the component boundary before adding mo
 
 ### Avoid
 
-- 3k-line components with unrelated state, effects, handlers, and markup
+- Components with unrelated state, effects, handlers, and markup mixed together
 - Components that are both low-level primitive and high-level feature wrapper
 - Bags of concerns
 - Splitting only visually while keeping all logic tangled together
@@ -326,28 +326,3 @@ Choose explicitly:
 - Too many surfaces
 - Visually dense UI without purpose
 - Decoration used to compensate for weak hierarchy
-
-## Refactor when
-
-- Tailwind groups are repeated
-- DOM structure is repeated
-- State transitions are repeated
-- Similar handlers exist with small variations
-- Effects mostly synchronize values
-- Local state keeps growing without boundaries
-- A component gets harder to change with every feature
-- Reusable behavior is duplicated locally
-- The code is functional but obviously awkward
-
-## Common failure modes to correct
-
-- Functionally correct but structurally noisy code
-- Weak state ownership
-- Too much local state
-- Too many effects
-- Duplicated Tailwind utilities
-- Unnecessary wrappers
-- Props mirrored into local state
-- Derived values stored as mutable state
-- Over-generalization in one place, under-extraction in another
-- Internal code written as if it were a public framework
