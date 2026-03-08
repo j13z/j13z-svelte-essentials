@@ -18,6 +18,9 @@ Use this rubric to review generated or refactored Svelte 5 code.
 - [ ] The file does not mix too many unrelated concerns
 - [ ] The component boundary matches the conceptual boundary
 - [ ] The code would still be understandable in three months
+- [ ] The component does not contain multiple distinct reactive concern groups that want separate units
+- [ ] Non-visual logic does not dominate the component script
+- [ ] Logic that would still exist with a different UI has been extracted or isolated appropriately
 
 ## 3. Component type
 
@@ -48,11 +51,15 @@ Use this rubric to review generated or refactored Svelte 5 code.
 - [ ] There are no effect chains coordinating internal state
 - [ ] Reactive logic is simple and traceable
 - [ ] The code does not rely on ad hoc reactive glue
+- [ ] Render-relevant values are not created inside `$effect(...)`
+- [ ] Upward notifications are not emitted from `$effect(...)` when they belong in the mutation path
+- [ ] The implementation would still behave correctly during SSR
 
 ## 7. Modularity and extraction
 
 - [ ] Reusable non-visual logic is extracted from components when appropriate
 - [ ] Similar stateful behavior is not duplicated locally
+- [ ] A cohesive `.svelte.ts` controller/state module has been extracted when reactive concerns started to dominate the component
 - [ ] Helpers/modules are coherent and single-purpose
 - [ ] Rendering concerns are kept separate from reusable logic
 - [ ] The current abstraction level is justified by actual repetition
@@ -97,6 +104,7 @@ Apply if the unit is a headless primitive.
 - [ ] The API is explicit but not unnecessarily closed
 - [ ] Native platform capabilities are not blocked without reason
 - [ ] Forwarding and extension points feel intentional
+- [ ] `$bindable` is used only where two-way control is clearly intentional
 
 ## 12. Tailwind usage
 
@@ -126,6 +134,7 @@ Apply if the unit is a headless primitive.
 - [ ] Native elements are used where possible
 - [ ] HTML semantics are correct
 - [ ] ARIA is used only when needed
+- [ ] Semantic attributes and `data-*` hooks are exposed where they form part of the component contract
 - [ ] Keyboard and focus behavior are not accidental
 - [ ] Accessibility is part of the implementation, not a late patch
 

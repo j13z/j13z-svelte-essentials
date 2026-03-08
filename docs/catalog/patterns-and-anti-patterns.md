@@ -174,6 +174,9 @@ A large share of “weird but working” code comes from poor state structure.
 - Effects only when there is an actual side effect
 - Minimal reactive surface area
 - Code where dependencies are conceptually obvious
+- If a value can be computed during render, derive it instead of creating it in an effect
+- Callbacks or explicit mutation paths for upward actions instead of reactive notification glue
+- Attachments for element-bound DOM behavior
 
 ### Avoid
 
@@ -182,10 +185,14 @@ A large share of “weird but working” code comes from poor state structure.
 - Effects doing too many things at once
 - Reactive code that hides ownership or data flow
 - Components full of ad hoc reactive glue
+- Emitting state upward from an effect when the action should happen in the mutation path
+- Creating render-relevant state inside an effect
 
 ### Why
 
 Effects are powerful, but overuse quickly leads to fragile code.
+
+Effects do not run during SSR, so render-relevant values should not be created in effects.
 
 ### Evaluatable signals
 
@@ -211,6 +218,7 @@ Refactor when:
 
 - Extract logic that is not inherently tied to markup
 - Move reusable stateful behavior into dedicated modules
+- Cohesive `.svelte.ts` state/controller modules when a component starts accumulating multiple unrelated reactive concerns
 - Keep modules coherent and single-purpose
 - Extract repeated transformations, orchestration, or state transitions
 - Separate rendering concerns from reusable behavior
@@ -218,6 +226,7 @@ Refactor when:
 ### Avoid
 
 - Keeping reusable logic trapped inside a component
+- Letting one component accumulate broad orchestration, external synchronization, and rendering concerns that could form a cohesive controller/module
 - Repeating similar helper logic with tiny deviations
 - Duplicating state transitions across features
 - Giant components that combine rendering, orchestration, data shaping, and interaction logic
@@ -268,6 +277,18 @@ Poor component boundaries create the illusion of progress while burying long-ter
 - Removing one sub-concern would not require rewriting everything
 - The file does not mix too many unrelated interaction models
 - The component boundary matches the conceptual boundary
+
+### Component growth signals
+
+Refactor or split when:
+
+- a component contains multiple distinct reactive concern groups
+- new feature work repeatedly adds more state, effects, handlers, or conditionals into the same file
+- non-visual logic starts to dominate the component script
+- parts of the logic would still exist even if the UI were rendered differently
+- one file owns rendering, orchestration, and external synchronization at the same time
+
+Size is a signal, not a rule. Treat growth as a refactoring prompt, not as an automatic violation.
 
 ### Refactoring triggers
 
@@ -368,6 +389,7 @@ These are not cosmetic issues. They usually indicate a structural problem.
 - Svelte 5 syntax and runes-era conventions only
 - `$props()` for props
 - snippets and `{@render ...}` for composition
+- Attachments for element-bound DOM behavior in new code
 - modern Svelte 5 patterns consistently across the codebase
 
 ### Avoid
@@ -521,6 +543,7 @@ Headless abstractions are powerful, but more expensive to design and maintain.
 - `children` for the default path
 - Named snippets when structure matters
 - Composition APIs that mirror real structure
+- Props down, callbacks or commands up as the default interaction model
 
 ### Avoid
 
@@ -550,6 +573,7 @@ Composition should clarify a component, not make it more abstract than necessary
 - Support for `ref` on DOM-root primitives
 - Native props forwarded where appropriate
 - Public APIs that are explicit but not closed off
+- `$bindable` only when two-way control is intentional and obvious
 
 ### Avoid
 
@@ -758,6 +782,7 @@ Use this when reviewing generated Svelte code.
 - Should any logic be extracted into a helper or module?
 - Is reusable behavior duplicated locally?
 - Is the current abstraction level justified by actual repetition?
+- Would a cohesive `.svelte.ts` controller/state module simplify this component?
 
 ### Component API
 

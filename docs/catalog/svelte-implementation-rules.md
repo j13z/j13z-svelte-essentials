@@ -12,6 +12,8 @@ They are intentionally opinionated and optimized for maintainability, clean arch
 - Do not use `export let`
 - Do not use legacy slots in new code unless compatibility explicitly requires them
 - Prefer Svelte 5 attachments over actions in new code
+- Treat `$effect(...)` as an escape hatch for real side effects and external systems
+- Do not create render-relevant state inside `$effect(...)`
 - Prefer native HTML semantics first
 - Prefer explicit structure over clever shortcuts
 
@@ -44,6 +46,18 @@ They are intentionally opinionated and optimized for maintainability, clean arch
 - Could any writable state be derived instead?
 - Does any state clearly belong in a reusable module?
 
+## Reactivity decision path
+
+When code needs to react to something, choose in this order:
+
+1. Pure computed value → `$derived`
+2. Local mutable state owned here → `$state`
+3. Upward action → callback or explicit mutation path
+4. Element-bound DOM behavior → attachment
+5. External runtime / timer / observer / listener / async synchronization → `$effect`
+
+If none of these fit cleanly, reconsider the component boundary before adding more reactive glue.
+
 ## Reactivity
 
 ### Prefer
@@ -52,6 +66,9 @@ They are intentionally opinionated and optimized for maintainability, clean arch
 - Derived computations over imperative synchronization
 - `$effect(...)` only for real side effects
 - Minimal reactive surface area
+- Computing render-relevant values during render
+- Callbacks or explicit mutation paths for upward actions
+- Attachments for element-bound DOM behavior
 
 ### Avoid
 
@@ -59,17 +76,21 @@ They are intentionally opinionated and optimized for maintainability, clean arch
 - Chains of effects updating other reactive values
 - Effects that coordinate multiple unrelated concerns
 - Ad hoc reactive glue spread across a component
+- Creating render-relevant state inside `$effect(...)`
+- Emitting state upward from `$effect(...)` when the action belongs in the mutation path
 
 ### Review for
 
 - Does every `$effect(...)` have a clear side-effectful purpose?
 - Is any effect compensating for poor state modeling?
 - Would derivation be simpler than synchronization?
+- Would this still behave correctly during SSR?
 
 ## Logic extraction and modularization
 
 ### Prefer
 
+- Cohesive `.svelte.ts` controller/state modules when reactive concerns start to dominate a component
 - Extract logic that is not inherently tied to markup
 - Move reusable stateful behavior into coherent modules
 - Extract repeated transformations, handlers, orchestration, or state transitions
@@ -87,6 +108,7 @@ They are intentionally opinionated and optimized for maintainability, clean arch
 - Is any non-visual logic duplicated?
 - Should this logic be testable or reusable outside the component?
 - Is a module a better home than the component script?
+- Has this component become large enough that a cohesive `.svelte.ts` controller/module would simplify it?
 
 ## Component boundaries
 
@@ -109,6 +131,9 @@ They are intentionally opinionated and optimized for maintainability, clean arch
 - Can the component’s responsibility be described in one sentence?
 - Does the file mix unrelated interaction models?
 - Should this be split into subcomponents or modules?
+- Does the component contain multiple distinct reactive concern groups?
+- Is non-visual logic starting to dominate the component script?
+- Would parts of this logic still exist even if the UI were rendered differently?
 
 ## Component type selection
 
@@ -170,6 +195,7 @@ Choose explicitly:
 - Keep behavior/semantics explicit
 - Leave styling to the consumer
 - Use render delegation only when truly needed
+- Semantic attributes and `data-*` hooks as extension points
 
 ### Avoid
 
@@ -199,6 +225,7 @@ Choose explicitly:
 - Support `ref` on DOM-root primitives
 - Forward native props where appropriate
 - Keep APIs explicit but open enough for real integration
+- Props down and callbacks up by default; use `$bindable` sparingly
 
 ### Avoid
 
