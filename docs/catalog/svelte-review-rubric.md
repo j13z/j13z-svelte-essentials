@@ -60,6 +60,8 @@ Use this rubric to review generated or refactored Svelte 5 code.
 - [ ] Render-relevant values are not created inside `$effect(...)`
 - [ ] Upward notifications are not emitted from `$effect(...)` when they belong in the mutation path
 - [ ] The implementation would still behave correctly during SSR
+- [ ] For non-trivial bugs such as issues involving synchronization, feedback loops, commands, or competing write paths, the implementation was diagnosed structurally before applying a local fix
+- [ ] Local guards, suppression logic, or conditionals are not used as band-aids where the underlying ownership or synchronization model should be corrected instead
 
 ## 7. Modularity and extraction
 
@@ -159,6 +161,7 @@ Apply if the unit is a headless primitive.
 - [ ] The current structure reduces future cleanup work
 - [ ] Repetition has been addressed at the right level
 - [ ] The implementation feels deliberate rather than merely “good enough”
+- [ ] Non-trivial bugfixes address the root cause rather than only suppressing the visible symptom
 
 ## 18. Common failure modes
 
