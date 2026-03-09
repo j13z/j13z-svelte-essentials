@@ -360,6 +360,10 @@ When asked to rewrite a problematic area:
 5. prefer a lean target architecture over feature-for-feature structural imitation
 6. make the migration path explicit
 
+## Final remarks
+
+Before finishing your task, ask yourself: Did you push hard enough to work towards a sound code architecture, maintainable code base, high code quality, code that's coherent and easy to undestand, that can keep up with future grows, increasing complexity and changing requirements? If not, re-consider your work – but don't get lost in endless loops, propose partial solutions if required.
+
 ## Resources
 
 Use these resources as canonical references when needed:
