@@ -32,7 +32,7 @@ Comment structure:
 <!-- 📖 Module-script -->
 <script lang="ts" module>
 	import type { Snippet } from "svelte"
-	import type { HTMLAttributes } from "svelte/elements"
+	import type { HTMLButtonAttributes } from "svelte/elements"
 	import { type WithElementRef } from "$lib/ui/utils"
 
 	type RootElementType = HTMLButtonElement // 👉 Update if you use a different element
@@ -73,14 +73,14 @@ Comment structure:
 
 	// 📖 These are the props that must always reach the rendered element,
 	//    whether it is the default root element or a caller-provided `child`.
-	const forwardedProps: RootAttributes = {
+	const forwardedProps: RootAttributes = $derived({
 		...restProps,
 		class: className,
 		disabled,
 		"aria-pressed": pressed ? "true" : "false",
 		"data-disabled": disabled ? "" : undefined,
 		"data-pressed": pressed ? "" : undefined
-	}
+	})
 </script>
 
 {#if child}
