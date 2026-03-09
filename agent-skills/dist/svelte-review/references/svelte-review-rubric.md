@@ -6,6 +6,7 @@ Use this rubric to review generated or refactored Svelte 5 code.
 
 - [ ] Uses Svelte 5 syntax only, does not use the following Svelte 4 syntax:
     - Uses correct Svelte 5 rune syntax, including valid forms of `$derived` (expression form `$derived` vs function form `$derived.by`)
+    - `$props` are not just destructured or re-assigned, wrong: `const localBinding = myProp.foo` (breaks reactivity); correct: always use `$derived`: `const localBinding = myProp.foo` ($derived also supports destrucuring))
     - No `export let`,  uses `$props()` for props
     - No `$:` reactive statements (instead: Svelte 5 runes)
     - No `<slot>`, uses snippets / `children` / `{@render children?.()}` instead where composition is needed (additional snippet props possible)
