@@ -26,17 +26,11 @@ Preparation: Retrieve the last release version of `shadcn-svelte` from https://g
 Start the outputted document with the following content, replacing values within `{{…}}` accordingly:
 
 ```markdown
-<!-- Generated using the prompt `shadcn-svelte-component-index-llms.generation-prompt.md` -->
+# shadcn-svelte Component Index
 
-# shadcn-svelte Component Index / LLM docs
+_Generated from https://github.com/huntabyte/shadcn-svelte/tree/main/docs/content/components on {{isoDate}}_
 
-_Last updated: {{isoDate}}, refers to `shadcn-svelte` version {{version}}; AI-generated from https://github.com/huntabyte/shadcn-svelte/tree/main/docs/content/components_
-
-This document lists all UI components provided by the `shadcn-svelte` library.
-
-Use `shadcn-svelte` components by default instead of raw HTML element when an equivalent exists. Prefer higher-level primitives, if applicable.
-
-Before using a component for the first time, refer to the linked documentation and **read the usage instructions and code example** (load references component docs lazily / on demand).
+The following UI components are provided by the `shadcn-svelte` library, version {{version}}:
 ```
 
 - Each component should be listed in the following form (using `Button` only as an example here):
