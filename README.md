@@ -4,6 +4,24 @@ A collection of code snippets, patterns, agent instructions, and workflows I use
 
 ## Highlights
 
+### 🧠 Agent Skills
+
+Three pre-built agent skills are available in [`agent-skills/dist/`](./dist/):
+
+- [`svelte-authoring`](./agent-skills/dist/svelte-authoring/): Implementation-focused Svelte skill
+    - A strong frontend engineer who gets the job done cleanly, follows the rules, and aims for maintainable code without constantly re-litigating the architecture.
+
+- [`svelte-review`](./agent-skills/dist/svelte-review/): Architecture- and diagnosis-focused Svelte skill
+    - A skeptical, experienced engineer who challenges the status quo, takes positions, and pushes for structural changes or rewrites when the current solution is no longer a good foundation.
+
+- [`shadcn-svelte`](./agent-skills/dist/shadcn-svelte/): Understands concepts of `shadcn-svelte`
+  - Knows the docs (progressive disclosure
+  -  Complements `svelte-authoring` (both desirable for one task)
+
+The outcome still depends heavily on the prompt, especially for `svelte-review`  or `svelte-authoring` when deeper refactoring or rewrite pressure is needed.
+
+The `agents-tools` directory contains a build script to build these agent skills based on the documents maintained in this repository.
+
 ### 🛠️ Component Blueprints / Templates
 
 Inspired by [Bits UI](https://github.com/huntabyte/bits-ui) and [shadcn-svelte](https://github.com/huntabyte/shadcn-svelte), [`templates/ui-components/`](./templates/ui-components/):
@@ -35,10 +53,9 @@ Contents – [`./docs/catalog`](./docs/catalog):
 
 Goal: Teach agents how to write well-structured, maintainable Svelte 5 code
 
-- [`shadcn-svelte`](https://github.com/huntabyte/shadcn-svelte/tree/main/docs) [LLM usage instructions](./agent-snippets/shadcn-svelte-component-index-llms.md): Can be offered in an agent skill (progressive disclosure) like a `llms.txt`, but pushes towards usage (not a neutral listing)
+- [`shadcn-svelte`](https://github.com/huntabyte/shadcn-svelte/tree/main/docs) [component index for LLMs](./agent-snippets/shadcn-svelte-component-index-llms.md): Can be offered in an agent skill (progressive disclosure) like a `llms.txt`
 
 - [`UI Components.md`](./templates/agent-snippets/UI%20Components.md): guidance for writing composable and well-structured Svelte 5 UI components
-
 
 <!--
 ### 🧩 Code Snippets
