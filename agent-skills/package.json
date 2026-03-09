@@ -7,7 +7,7 @@
     "typecheck": "tsc -p tsconfig.json",
     "build": "pnpm run typecheck && tsx scripts/build.ts build",
     "clean": "pnpm run typecheck && tsx scripts/build.ts clean",
-    "install:local": "pnpm run clean && pnpm run build && tsx scripts/build.ts install-local"
+    "install:home": "pnpm run clean && pnpm run build && tsx scripts/build.ts install-home"
   },
   "devDependencies": {
     "@types/node": "^25.3.5",

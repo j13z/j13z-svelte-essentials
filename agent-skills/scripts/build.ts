@@ -117,7 +117,10 @@ async function buildSkills(): Promise<void> {
 	console.log("")
 }
 
-async function installLocal() {
+/**
+ * Installs the agent skills into `$HOME/.agents/skills`
+ */
+async function installHome() {
 	const homeDir = os.homedir()
 	if (!homeDir) {
 		throw new Error("Cannot install skills locally because $HOME is not set")
@@ -158,8 +161,8 @@ async function main() {
 
 	if (command === "build") {
 		await buildSkills()
-	} else if (command === "install-local") {
-		await installLocal()
+	} else if (command === "install-home") {
+		await installHome()
 	} else if (command === "clean") {
 		await clean()
 	} else {

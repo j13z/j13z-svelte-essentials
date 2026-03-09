@@ -8,5 +8,5 @@ This builds agent skill directories in `agent-skills/dist` based on reusable doc
 
 - `pnpm install`
 - `pnpm build`
-- Optionally: `pnpm install:local` to copy all skills to `~/.agents/skills` subdirs
+- Optionally: `pnpm install:home` to copy all skills to `~/.agents/skills` subdirs
 
