@@ -184,7 +184,7 @@ Do not recommend a rewrite lightly, but do not avoid recommending it when it is 
 
 ## Report format
 
-Do not produce a report that is dominated by findings alone.
+Do not produce a report that is dominated by findings alone. Try to keep the findings report short, focus more on the on target design / architecture / proposed direction.
 
 The report should make the target shape clearly visible and should not reduce it to a short appendix.
 
@@ -230,7 +230,7 @@ For each important finding:
 - **Why it matters**: why it creates risk, noise, or cleanup cost
 - **Recommended fix**: the smallest clean corrective action
 
-Prefer fewer, high-signal findings over long lists of minor observations.
+Prefer fewer, high-signal findings over long lists of minor observations. Keep each finding output short and precise. Format labels in bold / ensure the output is well scannable.
 
 ### Preferred plan
 
