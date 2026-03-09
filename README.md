@@ -33,8 +33,12 @@ Contents – [`./docs/catalog`](./docs/catalog):
 
 ### 🤖 Agent Instructions
 
-- Goal: Teach agents how to write well-structured, maintainable Svelte 5 code
+Goal: Teach agents how to write well-structured, maintainable Svelte 5 code
+
+- [`shadcn-svelte`](https://github.com/huntabyte/shadcn-svelte/tree/main/docs) [LLM usage instructions](./agent-snippets/shadcn-svelte-component-index-llms.md): Can be offered in an agent skill (progressive disclosure) like a `llms.txt`, but pushes towards usage (not a neutral listing)
+
 - [`UI Components.md`](./templates/agent-snippets/UI%20Components.md): guidance for writing composable and well-structured Svelte 5 UI components
+
 
 <!--
 ### 🧩 Code Snippets
